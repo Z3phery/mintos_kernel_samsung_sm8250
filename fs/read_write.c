@@ -609,9 +609,13 @@ ssize_t ksys_read(unsigned int fd, char __user *buf, size_t count)
 
 
 #ifdef CONFIG_KSU
-extern bool ksu_vfs_read_hook __read_mostly;
-extern int ksu_handle_sys_read(unsigned int fd, char __user **buf_ptr,
-			size_t *count_ptr);
+bool ksu_vfs_read_hook __read_mostly = false;
+EXPORT_SYMBOL(ksu_vfs_read_hook);
+
+int ksu_handle_sys_read(unsigned int fd, char __user **buf_ptr, size_t *count_ptr) {
+	return 0;
+}
+EXPORT_SYMBOL(ksu_handle_sys_read);
 #endif
 SYSCALL_DEFINE3(read, unsigned int, fd, char __user *, buf, size_t, count)
 {

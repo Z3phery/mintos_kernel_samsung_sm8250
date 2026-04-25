@@ -38,6 +38,11 @@
 #include "internal.h"
 #include <trace/hooks/syscall_check.h>
 
+bool task_is_powerhal(struct task_struct *p) __attribute__((weak));
+bool task_is_powerhal(struct task_struct *p) { 
+    return false; 
+}
+
 int do_truncate2(struct vfsmount *mnt, struct dentry *dentry, loff_t length,
 		unsigned int time_attrs, struct file *filp)
 {
